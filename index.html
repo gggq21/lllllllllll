@@ -15,16 +15,6 @@
             font-family: Arial, sans-serif;
             background-color: white; /* Fallback background color */
         }
-        #image {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure the image covers the whole viewport */
-            z-index: -1; /* Send the image to the background */
-        }
         #countdown {
             font-size: 48px;
             color: black;
@@ -45,13 +35,38 @@
             transform: translate(-50%, 50%);
             z-index: 1; /* Ensure the button is above the image */
         }
+
+        /* Desktop image */
+        #image-desktop {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the whole viewport */
+            z-index: -1; /* Send the image to the background */
+        }
+
+        /* Mobile image */
+        #image-mobile {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the whole viewport */
+            z-index: -1; /* Send the image to the background */
+        }
     </style>
 </head>
 <body>
 
 <button id="startButton">НАЖМИ</button>
 <div id="countdown">5</div>
-<img id="image" src="https://cdn.discordapp.com/attachments/759328626717622283/1273750645496746087/5327920683629534637.jpg?ex=66bfc03b&is=66be6ebb&hm=c9fa5bae3657971b5a9a41e2d6f0385d957df07c2e2e363e4160386f75036400&" alt="Image">
+<img id="image-desktop" src="5327920683629534637.jpg" alt="Desktop Image">
+<img id="image-mobile" src="https://cdn.discordapp.com/attachments/759328626717622283/1273699360101896243/5327920683629534637.jpg?ex=66bf9077&is=66be3ef7&hm=3edabb8b1e1f13b3655f67d3837d6b50776d2b9732a5a9dd23a4a817aeca346f&" alt="Mobile Image">
 <audio id="audio">
     <source src="lit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -60,7 +75,8 @@
 <script>
     let startButton = document.getElementById('startButton');
     let countdownElement = document.getElementById('countdown');
-    let imageElement = document.getElementById('image');
+    let imageDesktop = document.getElementById('image-desktop');
+    let imageMobile = document.getElementById('image-mobile');
     let audioElement = document.getElementById('audio');
     let countdown = 5;
 
@@ -75,7 +91,14 @@
             if (countdown === 0) {
                 clearInterval(interval);
                 countdownElement.style.display = 'none';
-                imageElement.style.display = 'block'; // Show the image
+
+                // Show the appropriate image based on screen size
+                if (window.innerWidth >= 768) {
+                    imageDesktop.style.display = 'block'; // Show the desktop image
+                } else {
+                    imageMobile.style.display = 'block'; // Show the mobile image
+                }
+
                 audioElement.play();
             }
         }, 1000);
