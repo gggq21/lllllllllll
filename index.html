@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lemon</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            font-family: Arial, sans-serif;
+            background-color: white; /* Fallback background color */
+        }
+        #image {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the whole viewport */
+            z-index: -1; /* Send the image to the background */
+        }
+        #countdown {
+            font-size: 48px;
+            color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Ensure the countdown is above the image */
+            display: none; /* Initially hidden */
+        }
+        #startButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 1; /* Ensure the button is above the image */
+        }
+    </style>
+</head>
+<body>
+
+<button id="startButton">НАЖМИ</button>
+<div id="countdown">5</div>
+<img id="image" src="https://cdn.discordapp.com/attachments/759328626717622283/1273750645496746087/5327920683629534637.jpg?ex=66bfc03b&is=66be6ebb&hm=c9fa5bae3657971b5a9a41e2d6f0385d957df07c2e2e363e4160386f75036400&" alt="Image">
+<audio id="audio">
+    <source src="lit.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    let startButton = document.getElementById('startButton');
+    let countdownElement = document.getElementById('countdown');
+    let imageElement = document.getElementById('image');
+    let audioElement = document.getElementById('audio');
+    let countdown = 5;
+
+    startButton.addEventListener('click', function() {
+        startButton.style.display = 'none';
+        countdownElement.style.display = 'block';
+
+        let interval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+
+            if (countdown === 0) {
+                clearInterval(interval);
+                countdownElement.style.display = 'none';
+                imageElement.style.display = 'block'; // Show the image
+                audioElement.play();
+            }
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
